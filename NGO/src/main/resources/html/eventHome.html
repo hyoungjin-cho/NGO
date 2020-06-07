@@ -16,6 +16,7 @@
      
     <th:block id="about-static-resources">
        
+        <script type="text/javascript" src="../static/about.js" th:src="@{/about.js}"></script>
        
     </th:block>
      
@@ -25,7 +26,7 @@
     <div id="about-header">
         
         NGO
-                <div style="float:right">
+        <div style="float:right">
                <form th:action="@{/logout}" method="post">
 	            <input type="submit" value="Sign Out"/>
 	        </form>
@@ -37,35 +38,39 @@
     </div>
  
     <div id="about-main-content">
-<h1>User Management</h1>
-    <a  href="addUser">Add User</a>
+    <h1>Event Management</h1>
+    <span align="center" style="align:right"><a href="addEvent">Add a new Event</a></span>
+    <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th>Event Name</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th></th>
                 
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${listUsers}">
-            	<td th:text="${user.firstname}">First Name</td>
-                <td th:text="${user.lastname}">Last Name</td>
-                <td th:text="${user.email}">Email</td>
-                <td th:text="${user.role}">role</td>
+            <tr th:each="event : ${listEvents}">
+            	<td th:text="${event.eventName}">Event</td>
+                <td th:text="${event.category}">Category</td>
+                <td th:text="${event.location}">Location</td>
+                <td th:text="${event.startDate}">Start Date</td>
+                <td th:text="${event.endDate}">End Date</td>
                 
                 <td>
-                	<a th:href="@{'/edit/' + ${user.id}}">Edit</a>
+                	<a th:href="@{'/editEvent/' + ${event.id}}">Edit</a>
                 	&nbsp;&nbsp;&nbsp;
-                	<a th:href="@{'/delete/' + ${user.id}}">Delete</a>
-           
+                	<a th:href="@{'/deleteEvent/' + ${event.id}}">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
+
+
     </div>
      
      
@@ -74,6 +79,7 @@
      
 </body>
 </html>
+
 
 
 

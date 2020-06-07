@@ -67,5 +67,18 @@ public class UserController {
 	public String deleteProduct(@PathVariable(name = "id") Long id) {
 		userRepo.deleteById(id);
 		return "redirect:/";
-}
+	}
+	  @RequestMapping("/about")
+	    public String about() {
+	        return "about";
+	    }
+	  
+	  @RequestMapping("/login")
+	    public String login() {
+	        return "login";
+	    }
+	  @RequestMapping("/home")
+	    public String home() {
+	        return "home";
+	    }
 }

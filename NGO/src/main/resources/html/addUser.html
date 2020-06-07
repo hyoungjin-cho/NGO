@@ -14,23 +14,23 @@
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>First Name:</td>
-					<td><input type="text" th:field="*{firstname}" /></td>
+					<td><input type="text" th:field="*{firstname}" required /></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" th:field="*{lastname}" /></td>
+					<td><input type="text" th:field="*{lastname}" required /></td>
 				</tr>
 				<tr>
 					<td>Email :</td>
-					<td><input type="text" th:field="*{email}" /></td>
+					<td><input type="email" th:field="*{email}" required/></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><input type="text" th:field="*{password}" /></td>
+					<td><input type="password" th:field="*{password}" required/></td>
 				</tr>
 					<tr>
 					<td>Role :</td>
-					<td><select name="role"  th:field="*{role}">
+					<td><select name="role"  th:field="*{role}" required>
 					<option value="Admin">Admin</option>
 					<option value="User">User</option>
 					</select> </td>
