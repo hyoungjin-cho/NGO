@@ -2,6 +2,7 @@ package com.summitworks.ngo.entities;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,9 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name="event_name")
+	private String eventName;
+	
 	private String description;
 	
 	@Column(name ="event_category")
@@ -40,6 +44,9 @@ public class Event {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endTimestamp;
 	
+	private Address address;
+	
+	@Column(name = "is_registrable")
 	private boolean isRegistrable;
 	
 	@Column(name = "image_url")
@@ -56,13 +63,21 @@ public class Event {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private Set<Registration> users = new HashSet<>();
-	
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
 	}
 
 	public String getDescription() {
@@ -95,6 +110,14 @@ public class Event {
 
 	public void setEndTimestamp(Date endTimestamp) {
 		this.endTimestamp = endTimestamp;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public boolean isRegistrable() {
@@ -137,4 +160,12 @@ public class Event {
 		this.users = users;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		
+		if(o == null || getClass() != o.getClass()) return false;
+		Event e = (Event) o;
+		return Objects.equals(this.id, e.getId());
+	}
 }

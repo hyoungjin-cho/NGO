@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>App Fragments</title>
+</head>
+<body>
+     
+     
+    <!-- Default Navigator -->
+     
+    <ul th:fragment = "nav-default">
+        <li><a th:href="@{/userManagement}">User Management</a></li>
+        <br><br>
+        <li><a th:href="@{/EventManagement}">Event Management</a></li>
+         <br><br>
+        <li><a th:href="@{/}">User View</a></li>
+
+    </ul>
+     
+    <!-- Admin Navigator -->
+     
+    <ul th:fragment = "nav-user">
+
+    </ul>
+     
+     
+     
+  
+     
+     
+ 
+</body>
+</html>

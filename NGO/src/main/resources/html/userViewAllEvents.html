@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+ 
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #about-static-resources},
+                                                ~{:: #about-header},
+                                                ~{:: #about-nav},
+                                                ~{:: #about-main-content},  
+                                                ~{:: #about-footer}
+                                               )}">
+                                                
+<head>
+    <title>NGO</title>
+     
+    <th:block id="about-static-resources">
+       
+        <script type="text/javascript" src="../static/about.js" th:src="@{/about.js}"></script>
+       
+    </th:block>
+     
+</head>
+<body>
+ 
+    <div id="about-header">
+          <div style="float:left">
+         <span sec:authentication="name">te</span>
+      </div>
+        NGO
+                <div style="float:right">
+               <form th:action="@{/logout}" method="post">
+	            <input type="submit" value="Sign Out"/>
+	        </form>
+        </div>
+        
+    </div>
+	    <div sec:authorize="hasRole('ROLE_Admin')" id="about-nav" th:replace="~{/fragment/app-fragments :: nav-default}">
+	         Nav
+	    </div>
+	    <div sec:authorize="hasRole('ROLE_User')" id="about-nav" th:replace="~{/fragment/app-fragments :: nav-user}">
+	         Nav
+	    </div>
+    <div id="about-main-content">
+    <h1>Event Registration (User View)</h1>
+    <br/><br/>
+    <table  cellpadding="1" >
+      
+    	<li th:each="event , stat : ${listEvents}" th:remove="tag">
+    	 <span th:if="${(stat.index+1) % 4 ==0}"><tr height="30px"></tr><tr ></span>
+    		<td >
+    			<a th:href="@{'/EventDetail/' + ${event.id}}"> 
+    				<img th:src="${event.imageUrl}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
+    			</a><br>
+    			<center>[[${event.eventName}]] : [[${event.location}]]  </center>
+    		</td >
+    		<td width="20px">    		</td>
+    		       <span th:if="${stat.index+1 % 2 ==0}"></tr ><tr></tr></span>
+    		
+    	</li>
+    </table>
+    </div>
+     
+     
+ 
+     
+     
+</body>
+</html>

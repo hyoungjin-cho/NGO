@@ -70,6 +70,17 @@ public class User implements Serializable {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		User u = (User) o;
+		return this.email.equalsIgnoreCase(u.getEmail()) &&
+				this.firstname.equalsIgnoreCase(u.getFirstname()) &&
+				this.lastname.equalsIgnoreCase(u.getLastname()) &&
+				this.password.equalsIgnoreCase(u.getPassword());	
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(email);
 	}

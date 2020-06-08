@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Event Detail</title>
+<style>
+h3.event {
+	background-color: #ebebeb;
+	font-size: 20px;
+	height: 10% margin-top: 20px
+}
+
+table.grid {
+	background-color: #ebebeb;
+	font-size: 20px;
+	height: 10% border-collapse;
+	text-align: center;
+	width: 100%
+}
+
+td {
+	border-color: #ffffff;
+	border-style: solid;
+	border-width: 20px;
+}
+</style>
+</head>
+<body>
+
+	<form action="#" th:action="@{'/RegisterForEvent/' + ${event.id}}"
+		th:object="${event}" method="post">
+		<h3 class="event">Event Registration Detail:</h3>
+		<table border="10" cellpadding="10" class="grid">
+			<tr>
+				<td><label>Event: <span th:text="*{eventName}"></span></label></td>
+				<td rowspan="3"><label>Description:<span
+						th:text="*{description}"> </span></label></td>
+				<td rowspan="5"><img style="
+    height: 200px;
+    width: 200px;
+" th:src="${event.imageUrl}" /></td>
+			</tr>
+
+
+			<tr>
+				<td><label>Category : <span th:text="*{category}"></span></label></td>
+
+			</tr>
+			<tr>
+				<td><label>Location : <span th:text="*{location}"></span></label></td>
+
+			</tr>
+			<tr>
+				<td><label>Start Date and time : <span
+						th:text="*{startDate}"></span><br/>
+						<span
+						th:text="*{starttime}"></span></label></td>
+						
+				<td><label>Child Ticket Price : <span
+						th:text="*{childTicketPrice}"></span></label></td>
+
+
+			</tr>
+			<tr>
+				<td><label>End Date and time : <span
+						th:text="*{endDate}"></span><br/>
+						<span
+						th:text="*{endtime}"></span></label></td>
+						
+				<td><label>Child Ticket Price : <span
+						th:text="*{adultTicketPrice}"></span></label></td>
+
+
+			</tr>
+			
+
+
+
+
+			<tr>
+				<td colspan="3"><div th:if="*{allowRegistration}">
+						<button type="submit" name="registration">Registration</button>
+					</div>
+					<div th:unless="*{allowRegistration}">
+						<button type="submit" name="registration" disabled>Registration</button>
+					</div></td>
+
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>

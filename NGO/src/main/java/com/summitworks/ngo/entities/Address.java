@@ -15,7 +15,7 @@ public class Address implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String steet;
+	private String street;
 	private String city;
 	private String state;
 	private String country;
@@ -27,11 +27,11 @@ public class Address implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getSteet() {
-		return steet;
+	public String getStreet() {
+		return street;
 	}
-	public void setSteet(String steet) {
-		this.steet = steet;
+	public void setStreet(String steet) {
+		this.street = steet;
 	}
 	public String getCity() {
 		return city;
@@ -58,4 +58,15 @@ public class Address implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		Address address = (Address) o;
+		return this.street.equalsIgnoreCase(address.getStreet()) &&
+				this.city.equalsIgnoreCase(address.getCity()) &&
+				this.state.equalsIgnoreCase(address.getState()) &&
+				this.country.equalsIgnoreCase(address.getCountry()) &&
+				this.zipCode.equals(address.zipCode);	
+	}
 }

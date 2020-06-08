@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+ 
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #about-static-resources},
+                                                ~{:: #about-header},
+                                                ~{:: #about-nav},
+                                                ~{:: #about-main-content},  
+                                                ~{:: #about-footer}
+                                               )}">
+                                                
+<head>
+    <title>NGO</title>
+     
+    <th:block id="about-static-resources">
+       
+        <script type="text/javascript" src="../static/about.js" th:src="@{/about.js}"></script>
+       
+    </th:block>
+     
+</head>
+<body>
+ 
+    <div id="about-header">
+        
+        NGO
+        
+    </div>
+     
+    <div id="about-nav" th:replace="~{/fragment/app-fragments :: nav-default}">
+         Nav
+    </div>
+ 
+    <div id="about-main-content">
+    <h1>Event Registration (User View)</h1>
+    <br/><br/>
+    <table  cellpadding="1" >
+      
+    	<li th:each="event , stat : ${listEvents}" th:remove="tag">
+    	 <span th:if="${(stat.index+1) % 4 ==0}"><tr height="30px"></tr><tr ></span>
+    		<td >
+    			<a th:href="@{'/EventDetail/' + ${event.id}}"> 
+    				<img th:src="@{/images/test.png}" th:alt="${event.eventName}" style="width:20%;height:184px;background-color:white"/>
+    			</a><br>
+    			<center>[[${event.eventName}]] : [[${event.location}]]  </center>
+    		</td >
+    		<td width="20px">    		</td>
+    		       <span th:if="${stat.index+1 % 2 ==0}"></tr ><tr></tr></span>
+    		
+    	</li>
+    </table>
+    </div>
+     
+     
+ 
+     
+     
+</body>
+</html>

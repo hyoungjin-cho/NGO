@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+ 
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #about-static-resources},
+                                                ~{:: #about-header},
+                                                ~{:: #about-nav},
+                                                ~{:: #about-main-content},  
+                                                ~{:: #about-footer}
+                                               )}">
+                                                
+<head>
+
+    <title>NGO</title>
+     
+    <th:block id="about-static-resources">
+       
+       
+    </th:block>
+     
+</head>
+<body>
+ 
+    <div id="about-header">
+          <div style="float:left">
+         <span sec:authentication="name">te</span>
+      </div>
+        NGO
+        <div style="float:right">
+               <form th:action="@{/logout}" method="post">
+	            <input type="submit" value="Sign Out"/>
+	        </form>
+        </div>
+    </div>
+     
+    <div id="about-nav" th:replace="~{/fragment/app-fragments :: nav-default}">
+         Nav
+    </div>
+ 
+    <div id="about-main-content">
+    <h1>Event Management</h1>
+    <span align="center" style="align:right"><a href="addEvent">Add a new Event</a></span>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="event : ${listEvents}">
+            	<td th:text="${event.eventName}">Event</td>
+                <td th:text="${event.category}">Category</td>
+                <td th:text="${event.location}">Location</td>
+                <td th:text="${event.startDate}">Start Date</td>
+                <td th:text="${event.endDate}">End Date</td>
+                
+                <td>
+                	<a th:href="@{'/editEvent/' + ${event.id}}">Edit</a>
+                	&nbsp;&nbsp;&nbsp;
+                	<a th:href="@{'/deleteEvent/' + ${event.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    </div>
+     
+     
+ 
+     
+     
+</body>
+</html>
+
+
+
+
+
