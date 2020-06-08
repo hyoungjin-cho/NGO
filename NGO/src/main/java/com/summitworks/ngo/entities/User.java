@@ -1,21 +1,32 @@
 package com.summitworks.ngo.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.NaturalId;
 
 @Entity
+@Table(name="users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="role", discriminatorType = DiscriminatorType.STRING)
 public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String firstname;
 	private String lastname;
+	@NaturalId
 	private String email;
-	private String role;
 	private String password;
 
 	public String getFirstname() {
@@ -46,14 +57,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -64,5 +67,10 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
 	}
 }
