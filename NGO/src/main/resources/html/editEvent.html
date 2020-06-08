@@ -8,17 +8,18 @@
 	<div align="center">
 		<h1>Edit Event</h1>
 		<br />
-		<form action="#" th:action="@{/saveEvent}" th:object="${event}"
-			method="post">
+		<form action="#" th:action="@{/editSaveEvent/{id}}" th:object="${event}"
+			method="post" >
 			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{imageUrl}" />
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>Event:</td>
-					<td><input type="text" th:field="*{eventName}" /></td>
+					<td><input type="text" th:field="*{eventName}" required/></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
-					<td><input type="text" th:field="*{description}" /></td>
+					<td><input type="text" th:field="*{description}" required/></td>
 				</tr>
 				<tr>
 					<td>Category :</td>
@@ -30,16 +31,16 @@
 				</tr>
 				<tr>
 					<td>Start Date :</td>
-					<td><input type="date" th:field="*{startDate}" /></td>
+					<td><input type="date" th:field="*{startDate}" required/></td>
 				</tr>
 				<tr>
 					<td>End Date:</td>
-					<td><input type="date" th:field="*{endDate}" /></td>
+					<td><input type="date" th:field="*{endDate}" required/></td>
 				</tr>
 
 				<tr>
 					<td>Start Time :</td>
-					<td><input type="time" th:field="*{starttime}" /></td>
+					<td><input type="time" th:field="*{starttime}" required/></td>
 				</tr>
 				<tr>
 					<td>End Time :</td>
@@ -47,8 +48,9 @@
 				</tr>
 				<tr>
 					<td>Location :</td>
-					<td><input type="text" th:field="*{location}" /></td>
+					<td><input type="text" th:field="*{location}" required/></td>
 				</tr>
+				
 				<tr>
 					<td>Registration allowed :</td>
 					<td><INPUT type="radio" name="registration" value="True"
@@ -58,11 +60,11 @@
 				</tr>
 				<tr>
 					<td>Adult Ticket Price :</td>
-					<td><input type="text" th:field="*{adultTicketPrice}" /></td>
+					<td><input type="number" th:field="*{adultTicketPrice}" min=0 required/></td>
 				</tr>
 				<tr>
 					<td>Child Ticket Price :</td>
-					<td><input type="text" th:field="*{childTicketPrice}" /></td>
+					<td><input type="number" th:field="*{childTicketPrice}" min=0 required /></td>
 				</tr>
 				<tr>
 					<td><button type="submit">Save</button></td>

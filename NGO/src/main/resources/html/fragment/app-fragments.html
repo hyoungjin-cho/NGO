@@ -10,19 +10,18 @@
     <!-- Default Navigator -->
      
     <ul th:fragment = "nav-default">
-        <li><a th:href="@{/}">User Management</a></li>
+        <li><a th:href="@{/userManagement}">User Management</a></li>
         <br><br>
         <li><a th:href="@{/EventManagement}">Event Management</a></li>
          <br><br>
-        <li><a th:href="@{/userView}">User View</a></li>
+        <li><a th:href="@{/}">User View</a></li>
 
     </ul>
      
     <!-- Admin Navigator -->
      
-    <ul th:fragment = "nav-admin">
-        <li><a th:href="@{/admin/products}">Product Management</a></li>
-        <li><a th:href="@{/admin/orders}">Order Management</a></li>
+    <ul th:fragment = "nav-user">
+
     </ul>
      
      

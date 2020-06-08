@@ -23,9 +23,14 @@
 <body>
  
     <div id="about-header">
-        
+     <div style="float:left">
+         <span sec:authentication="name">te</span>
+      </div>
         NGO
-                <div style="float:right">
+             
+                <div style="float:right" >
+                    
+                
                <form th:action="@{/logout}" method="post">
 	            <input type="submit" value="Sign Out"/>
 	        </form>
@@ -46,7 +51,7 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th></th>
+                <th>                     </th>
                 
             </tr>
         </thead>

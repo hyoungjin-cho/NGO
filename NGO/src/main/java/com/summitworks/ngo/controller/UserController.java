@@ -16,19 +16,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.summitworks.ngo.entities.User;
 import com.summitworks.ngo.repo.UserRepository;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 	@Value("${spring.application.name}")
 	String appName;
 	@Autowired
-	UserRepository userRepo;
-
-	@GetMapping("/")
+	UserRepository userRepo;	 
+	 
+	@GetMapping("/userManagement")
 	public String homePage(Model model) {
 		List<User> listUsers = userRepo.findAll();
-		//model.addAttribute("appName", appName);
 		model.addAttribute("listUsers", listUsers);
-		return "home";
+		return "userManagement";
 	}
 
 	@RequestMapping("/addUser")
@@ -47,13 +51,13 @@ public class UserController {
 		System.out.println("id after edit"+user.getId());
 		userRepo.save(user);
 
-		return "redirect:/";
+		return "redirect:/userManagement";
 	}
 	@RequestMapping(value = "/editSave/{id}", method = RequestMethod.POST)
 	public String saveEditUser(User user){
 		System.out.println("id after edit"+user.getId());
 	    userRepo.save(user);
-	    return "redirect:/" ;
+	    return "redirect:/userManagement" ;
 	}
 	@RequestMapping("/edit/{id}")
 	public ModelAndView showEditUserPage(@PathVariable(name = "id") Long id) {
@@ -66,7 +70,7 @@ public class UserController {
 	@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Long id) {
 		userRepo.deleteById(id);
-		return "redirect:/";
+		return "redirect:/userManagement";
 	}
 	  @RequestMapping("/about")
 	    public String about() {
@@ -79,6 +83,6 @@ public class UserController {
 	    }
 	  @RequestMapping("/home")
 	    public String home() {
-	        return "home";
+	        return "userManagement";
 	    }
 }

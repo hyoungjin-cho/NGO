@@ -12,11 +12,11 @@
                                                )}">
                                                 
 <head>
+
     <title>NGO</title>
      
     <th:block id="about-static-resources">
        
-        <script type="text/javascript" src="../static/about.js" th:src="@{/about.js}"></script>
        
     </th:block>
      
@@ -24,7 +24,9 @@
 <body>
  
     <div id="about-header">
-        
+          <div style="float:left">
+         <span sec:authentication="name">te</span>
+      </div>
         NGO
         <div style="float:right">
                <form th:action="@{/logout}" method="post">

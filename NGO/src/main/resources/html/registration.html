@@ -14,36 +14,33 @@
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>First Name:</td>
-					<td><input type="text" th:field="*{firstName}" /></td>
+					<td><input type="text" th:field="*{firstName}" required /></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" th:field="*{lastName}" /></td>
+					<td><input type="text" th:field="*{lastName}" required /></td>
 				</tr>
 				<tr>
 					<td>Email :</td>
-					<td><input type="text" th:field="*{email}" /></td>
+					<td><input type="email" th:field="*{email}" required/></td>
 				</tr>
 				<tr>
 					<td>Contact:</td>
-					<td><input type="text" th:field="*{contact}" /></td>
+					<td><input type="text" th:field="*{contact}" required/></td>
 				</tr>
 					<tr>
 					<td>Adult Ticket Count :</td>
-					<td><input type="text" th:field="*{adultTicketQty}" />
+					<td><input type="number" th:field="*{adultTicketQty}" min="0" required/>
 					</td>
 				</tr>	
 				<tr>
 					<td>Child Ticket Count :</td>
-					<td><input type="text" th:field="*{childTicketQty}" />
+					<td><input type="number" th:field="*{childTicketQty}" min="0" required />
 					</td>
 				</tr>
-				<tr>
-					<td>event id :</td>
-					<td><input type="text" th:field="*{event.id}" />
-					</td>
-					</tr>				
-				<tr>
+				
+				<input type="hidden" th:field="*{event.id}" />
+					
 					<td><button type="submit">Next</button> </td>
 					<td><button type="reset">Cancel</button> </td>
 				</tr>

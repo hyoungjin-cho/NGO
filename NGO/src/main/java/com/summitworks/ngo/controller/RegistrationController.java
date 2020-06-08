@@ -60,6 +60,6 @@ public class RegistrationController {
 		Registration registration=regisRepo.getOne(id);
 		registration.setRegistrationConfirmed(true);
 		regisRepo.save(registration);
-		return "redirect:/";
+		return "redirect:/userView";
 	}
 }

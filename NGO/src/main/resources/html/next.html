@@ -13,12 +13,15 @@
 			
 			<table border="0" cellpadding="10">
 				<tr>
-					<td>Total Adult Ticket Price:</td>
-					<td><input type="text" th:value="*{totalAdultAmount}" /></td>
-				</tr>
+					
+				<td><label>Total Adult Ticket Price:: <span
+						th:text="*{totalAdultAmount}"></span></label></td>
+						</tr>
+				
 				<tr>
-					<td>Total Child Ticket Price:</td>
-					<td><input type="text" th:value="*{totalChildAmount}" /></td>
+				<td><label>Total Child Ticket Price:: <span
+						th:text="*{totalChildAmount}"></span></label></td>
+				
 				</tr>
 				<tr>
 					<td><button type="submit">Confirm</button></td>

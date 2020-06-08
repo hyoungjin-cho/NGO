@@ -9,12 +9,12 @@
 		<h1>Add New Event</h1>
 		<br />
 		<form action="#" th:action="@{/saveEvent}" th:object="${event}"
-			method="post">
+			method="post" enctype="multipart/form-data">
 
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>Event:</td>
-					<td><input type="text" th:field="*{eventName}" /></td>
+					<td><input type="text" th:field="*{eventName}" required /></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
@@ -22,7 +22,7 @@
 				</tr>
 				<tr>
 					<td>Category :</td>
-					<td><select name="category"  th:field="*{category}">
+					<td><select name="category"  th:field="*{category}" required>
 					<option value="Presentation">Presentation</option>
 					<option value="Social">Social</option>
 					<option value="Religious">Religious</option>
@@ -30,24 +30,29 @@
 				</tr>	
 				<tr>
 					<td>Start Date :</td>
-					<td><input type="date" th:field="*{startDate}" /></td>
+					<td><input type="date" th:field="*{startDate}" required /></td>
 				</tr>
 				<tr>
 					<td>End Date:</td>
-					<td><input type="date" th:field="*{endDate}" /></td>
+					<td><input type="date" th:field="*{endDate}" required/></td>
 				</tr>	 				
 	
 				<tr>
 					<td>Start Time :</td>
-					<td><input type="time" th:field="*{starttime}" /></td>
+					<td><input type="time" th:field="*{starttime}" required/></td>
 				</tr>	
 				<tr>
 					<td>End Time :</td>
-					<td><input type="time" th:field="*{endtime}" /></td>
+					<td><input type="time" th:field="*{endtime}" required/></td>
+				</tr>
+				<tr>
+					<td>File to upload:
+					</td>
+					<td><input type="file" name="file" /></td>
 				</tr>
 				<tr>
 					<td>Location :</td>
-					<td><input type="text" th:field="*{location}" /></td>
+					<td><input type="text" th:field="*{location}" required /></td>
 				</tr>	
 				<tr>
 				<td>Registration allowed :</td>
@@ -57,12 +62,12 @@
     				 </td>
     			</tr>			
 				<tr>
-					<td>Adult Ticket Price :</td>
-					<td><input type="text" th:field="*{adultTicketPrice}" /></td>
+					<td>Adult Ticket Price $:</td>
+					<td><input type="number" th:field="*{adultTicketPrice}" min=0 required/></td>
 				</tr>
 				<tr>
-					<td>Child Ticket Price :</td>
-					<td><input type="text" th:field="*{childTicketPrice}" /></td>
+					<td>Child Ticket Price $:</td>
+					<td><input type="number" th:field="*{childTicketPrice}" min=0 required/></td>
 				</tr>
 				<tr>
 					<td><button type="submit">Save</button> </td>

@@ -24,7 +24,9 @@
 <body>
  
     <div id="about-header">
-        
+          <div style="float:left">
+         <span sec:authentication="name">te</span>
+      </div>
         NGO
                 <div style="float:right">
                <form th:action="@{/logout}" method="post">
@@ -33,11 +35,12 @@
         </div>
         
     </div>
-     
-    <div id="about-nav" th:replace="~{/fragment/app-fragments :: nav-default}">
-         Nav
-    </div>
- 
+	    <div sec:authorize="hasRole('ROLE_Admin')" id="about-nav" th:replace="~{/fragment/app-fragments :: nav-default}">
+	         Nav
+	    </div>
+	    <div sec:authorize="hasRole('ROLE_User')" id="about-nav" th:replace="~{/fragment/app-fragments :: nav-user}">
+	         Nav
+	    </div>
     <div id="about-main-content">
     <h1>Event Registration (User View)</h1>
     <br/><br/>
@@ -47,7 +50,7 @@
     	 <span th:if="${(stat.index+1) % 4 ==0}"><tr height="30px"></tr><tr ></span>
     		<td >
     			<a th:href="@{'/EventDetail/' + ${event.id}}"> 
-    				<img th:src="@{/images/test.png}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
+    				<img th:src="${event.imageUrl}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
     			</a><br>
     			<center>[[${event.eventName}]] : [[${event.location}]]  </center>
     		</td >
