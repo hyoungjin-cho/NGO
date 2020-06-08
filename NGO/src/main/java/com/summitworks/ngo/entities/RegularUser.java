@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("Regular")
@@ -22,6 +21,10 @@ public class RegularUser extends User {
 
 	public void setRegisteredEvents(Set<Registration> registeredEvents) {
 		this.registeredEvents = registeredEvents;
+	}
+	
+	public void registerEvent(Registration r) {
+		registeredEvents.add(r);
 	}
 	
 }

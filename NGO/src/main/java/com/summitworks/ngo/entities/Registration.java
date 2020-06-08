@@ -1,10 +1,15 @@
 package com.summitworks.ngo.entities;
 
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,19 +20,29 @@ public class Registration {
 	private RegistrationID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("userId")
+	@MapsId("user_id")
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("eventId")
+	@MapsId("event_id")
 	private Event event;
 	
 	private String firstname;
 	private String lastname;
 	private String email;
+	
+	@Column(name = "contact_number")
 	private String contactNumber;
+	
+	@OneToOne(fetch = FetchType.LAZY, 
+			cascade = CascadeType.ALL, 
+			mappedBy= "Registration")
 	private Address address;
+	
+	@Column(name = "total_adult_quantity")
 	private int totalAdultQty;
+	
+	@Column(name = "total_child_quantity")
 	private int totalChildQty;
 	
 	public RegistrationID getId() {
@@ -91,6 +106,9 @@ public class Registration {
 		this.totalChildQty = totalChildQty;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		return Objects.hash(user, event);
+	}
 	
 }
