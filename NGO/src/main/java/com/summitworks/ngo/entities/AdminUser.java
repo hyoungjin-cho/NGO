@@ -7,7 +7,4 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Admin")
 public class AdminUser extends User{
 
-	//TODO Add admin user's functionalities.
-	//     Creation of n-numbers of regular users
-	//     Manage events
 }
