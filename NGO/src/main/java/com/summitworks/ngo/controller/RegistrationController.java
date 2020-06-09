@@ -35,22 +35,24 @@ public class RegistrationController {
 	public ModelAndView next(@ModelAttribute("registration") Registration registration) {
 
 		// System.out.println("id after edit" + registration.getId());
-		Event event=eventRepo.getOne(registration.getEvent().getId());
-		regisRepo.save(registration);
-		long totalAdultAmount=0;
-		long totalChildAmount=0;
-		if(null!=registration.getAdultTicketQty()) {
-			totalAdultAmount=registration.getAdultTicketQty()*event.getAdultTicketPrice();
-		}
-		
-		if(null!=registration.getChildTicketQty()) {
-			totalChildAmount=registration.getChildTicketQty()*event.getChildTicketPrice();
-		}
+//		Event event=eventRepo.getOne(registration.getEvent().getId());
+//		regisRepo.save(registration);
+//		long totalAdultAmount=0;
+//		long totalChildAmount=0;
+//		if(null!=registration.getTotalAdultQty()) {
+//			totalAdultAmount=registration.getTotalAdultQty()*event.getAdultPrice();
+//		}
+//
+//		if(null!=registration.getChildTicketQty()) {
+//			totalChildAmount=registration.getChildTicketQty()*event.getChildTicketPrice();
+//		}
 	
 		ModelAndView mav = new ModelAndView("next");
 		// Event event = eventRepo.getOne(id);
-		mav.addObject("totalAdultAmount", totalAdultAmount);
-		mav.addObject("totalChildAmount", totalChildAmount);
+		//mav.addObject("totalAdultAmount", totalAdultAmount);
+		//mav.addObject("totalChildAmount", totalChildAmount);
+		mav.addObject("totalAdultAmount", 12);
+		mav.addObject("totalChildAmount", 1);
 		mav.addObject("registrationId",registration.getId());
 		return mav;
 
@@ -58,7 +60,7 @@ public class RegistrationController {
 	@RequestMapping("/ConfirmRegistration/{id}")
 	public String registrationConfirmed(@PathVariable(name="id") Long id) {
 		Registration registration=regisRepo.getOne(id);
-		registration.setRegistrationConfirmed(true);
+		//registration.setRegistrationConfirmed(true);
 		regisRepo.save(registration);
 		return "redirect:/userView";
 	}

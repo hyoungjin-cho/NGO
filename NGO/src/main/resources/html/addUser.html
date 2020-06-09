@@ -8,7 +8,7 @@
 	<div align="center">
 		<h1>Add New User</h1>
 		<br />
-		<form action="#" th:action="@{/save}" th:object="${user}"
+		<form action="#" th:action="@{/users/add}" th:object="${user}"
 			method="post">
 
 			<table border="0" cellpadding="10">
@@ -33,12 +33,14 @@
 					<td><input type="password" th:field="*{password}" required/></td>
 				</tr>
 					<tr>
-					<td>Role :</td>
-					<td><select name="role"  th:field="*{role}" required>
-					<option value="Admin">Admin</option>
-					<option value="User">User</option>
-					</select> </td>
-				</tr>				
+						<td>Role :</td>
+						<td>	
+							<select name="role"  th:field="*{role}" required>
+								<option th:each="role : ${T(com.frontbackend.thymeleaf.enums.model.UserType).values()}"
+										th:value="${role}" th:text="${role}"></option>
+							</select> 
+						</td>
+					</tr>				
 				<tr>
 					<td><button type="submit">Save</button> </td>
 					<td><button type="reset">Cancel</button> </td>

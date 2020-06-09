@@ -32,19 +32,58 @@ public class Event {
 	
 	private String description;
 	
-	@Column(name ="event_category")
 	@Enumerated(EnumType.STRING)
-	private EventCategory eventCategory;
+	private EventCategory category;
 	
-	@Column(name = "start_timestamp")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date startTimestamp;
+//	@Column(name = "start_timestamp")
+//	@Temporal(TemporalType.TIMESTAMP)
+//	private Date startTimestamp;
+//	
+//	@Column(name = "end_timestamp")
+//	@Temporal(TemporalType.TIMESTAMP)
+//	private Date endTimestamp;
 	
-	@Column(name = "end_timestamp")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date endTimestamp;
+	// I will remove once I use Date objects.
+	private String startDate;
+	private String startTime;
+	private String endDate;
+	private String endTime;
 	
-	private Address address;
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	// above removed above.
+
+	//private Address address;
+	private String location;
 	
 	@Column(name = "is_registrable")
 	private boolean isRegistrable;
@@ -88,37 +127,45 @@ public class Event {
 		this.description = description;
 	}
 
-	public EventCategory getEventCategory() {
-		return eventCategory;
+	public EventCategory getCategory() {
+		return category;
 	}
 
-	public void setEventCategory(EventCategory eventCategory) {
-		this.eventCategory = eventCategory;
+	public void setCategory(EventCategory category) {
+		this.category = category;
 	}
 
-	public Date getStartTimestamp() {
-		return startTimestamp;
+//	public Date getStartTimestamp() {
+//		return startTimestamp;
+//	}
+//
+//	public void setStartTimestamp(Date startTimestamp) {
+//		this.startTimestamp = startTimestamp;
+//	}
+//
+//	public Date getEndTimestamp() {
+//		return endTimestamp;
+//	}
+//
+//	public void setEndTimestamp(Date endTimestamp) {
+//		this.endTimestamp = endTimestamp;
+//	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
-	public void setStartTimestamp(Date startTimestamp) {
-		this.startTimestamp = startTimestamp;
-	}
-
-	public Date getEndTimestamp() {
-		return endTimestamp;
-	}
-
-	public void setEndTimestamp(Date endTimestamp) {
-		this.endTimestamp = endTimestamp;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
 	public boolean isRegistrable() {
 		return isRegistrable;

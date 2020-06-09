@@ -43,7 +43,7 @@
  
     <div id="about-main-content">
 <h1>User Management</h1>
-    <a  href="addUser">Add User</a>
+    <a  href="users/add">Add User</a>
     <table border="1" cellpadding="10">
         <thead>
             <tr>
@@ -65,7 +65,7 @@
                 <td>
                 	<a th:href="@{'/edit/' + ${user.id}}">Edit</a>
                 	&nbsp;&nbsp;&nbsp;
-                	<a th:href="@{'/delete/' + ${user.id}}">Delete</a>
+                	<a th:href="@{'/delete/' + ${user.id}}">Delete</a>  <!--  TODO: need to be "method="delete" not "get" for deleting obj. -->
            
                 </td>
             </tr>

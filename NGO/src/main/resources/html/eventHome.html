@@ -64,9 +64,9 @@
                 <td th:text="${event.endDate}">End Date</td>
                 
                 <td>
-                	<a th:href="@{'/editEvent/' + ${event.id}}">Edit</a>
+                	<a th:href="@{'/events/edit/' + ${event.id}}">Edit</a>
                 	&nbsp;&nbsp;&nbsp;
-                	<a th:href="@{'/deleteEvent/' + ${event.id}}">Delete</a>
+                	<a th:href="@{'/events/delete/' + ${event.id}}">Delete</a>
                 </td>
             </tr>
         </tbody>

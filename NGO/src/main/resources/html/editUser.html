@@ -9,8 +9,8 @@
 	<div align="center">
 		<h1>Edit User</h1>
 		<br />
-		<form action="#"  th:object="${user}" th:action="@{/editSave/{id}}"
-			method="post">
+		<form action="#"  th:object="${user}" th:action="@{/users/edit/{id}}"
+			method="put">
           <input type="hidden" th:field="*{id}"/>
 			<table border="0" cellpadding="10">
 						
@@ -34,10 +34,12 @@
 				</tr>			
 				<tr>
 					<td>Role :</td>
-					<td><select name="role"  th:field="*{role}" required>
-					<option value="Admin">Admin</option>
-					<option value="User">User</option>
-					</select> </td>
+					<td>
+						<select name="role"  th:field="*{role}" required>
+								<option th:each="role : ${T(com.frontbackend.thymeleaf.enums.model.UserType).values()}"
+										th:value="${role}" th:text="${role}"></option>
+							</select>  
+					</td>
 				</tr>				
 				<tr>
 					<td><button type="submit">Save</button> </td>

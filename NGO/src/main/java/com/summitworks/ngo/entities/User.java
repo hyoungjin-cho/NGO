@@ -1,24 +1,22 @@
 package com.summitworks.ngo.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name="users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="role", discriminatorType = DiscriminatorType.STRING)
 public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +26,9 @@ public class User implements Serializable {
 	@NaturalId
 	private String email;
 	private String password;
+	private String role;
+	@OneToMany(mappedBy = "User", cascade= CascadeType.ALL, orphanRemoval = true)
+	private Set<Registration> registeredEvents = new HashSet<>();
 
 	public String getFirstname() {
 		return firstname;
@@ -69,6 +70,26 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public Set<Registration> getRegisteredEvents() {
+		return registeredEvents;
+	}
+
+	public void setRegisteredEvents(Set<Registration> registeredEvents) {
+		this.registeredEvents = registeredEvents;
+	}
+	
+	public void registerEvent(Registration r) {
+		registeredEvents.add(r);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
