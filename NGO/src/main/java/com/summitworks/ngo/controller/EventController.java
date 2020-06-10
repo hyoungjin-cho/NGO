@@ -1,5 +1,6 @@
 package com.summitworks.ngo.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.summitworks.ngo.entities.User;
 import com.summitworks.ngo.exceptions.EventNotFoundException;
 import com.summitworks.ngo.repo.EventRepoistory;
 import com.summitworks.ngo.services.EventService;
+import com.summitworks.ngo.utils.Parser;
 
 @Controller
 @RequestMapping("/events/")
@@ -33,38 +35,35 @@ public class EventController {
 	@Autowired
 	AmazonClient amazonClient;
 
-	@GetMapping("/management")
+	@GetMapping("management")
 	public String listEvents(Model model) {
 		model.addAttribute("listEvents", eventService.getAllEvents());
-		return "eventHome";
+		return "eventManagement";
 	}
 
-	//@RequestMapping("/addEvent")
-	@GetMapping("/add")
+	@GetMapping("add")
 	public String showAddEventPage(Model model) {
-		System.out.println("add event method");
 		Event event = new Event();
 		model.addAttribute("event", event);
 		return "addEvent";
 	}
 
-	//@RequestMapping("/saveEvent")
-	@PostMapping("/add")
-	public String saveEvent(@ModelAttribute("event") Event event, @RequestPart(value = "file") MultipartFile file) {
-		System.out.println("file " + file);
-		System.out.println("Sve of controller");
-		System.out.println("id after edit" + event.getId());
+	@PostMapping("add")
+	public String saveEvent(@ModelAttribute("event") Event event, @RequestPart(value = "file") MultipartFile file, 
+			@RequestPart(value ="startDate") String startTimestampString, @RequestPart(value="endDate") String endTimestampString ) {
 		if (event.getId() == null || file!=null ) {
 			String fileLocation = this.amazonClient.uploadFile(file);
 			event.setImgUrl(fileLocation);
 		}
+		Date startTimestamp = Parser.parseTimestamp(startTimestampString);
+		Date endTimestamp = Parser.parseTimestamp(endTimestampString);
+		event.setStartTimestamp(startTimestamp);
+		event.setEndTimestamp(endTimestamp);
 		eventService.save(event);
-
 		return "redirect:/events/management";
 	}
 
-	//@RequestMapping("/edit/{id}")
-	@GetMapping("/edit/{id}")
+	@GetMapping("edit/{id}")
 	public ModelAndView showEditEventPage(@PathVariable(name = "id") Long id) throws EventNotFoundException {
 		ModelAndView mav = new ModelAndView("editEvent");
 		Event event = eventService.getEvent(id);
@@ -72,18 +71,29 @@ public class EventController {
 		return mav;
 	}
 	
-	//@RequestMapping(value = "/editSaveEvent/{id}", method = RequestMethod.POST)
-	@PutMapping("/edit/{id}")
-	public String saveEditEvent(Event event) throws EventNotFoundException {
-		System.out.println("id after edit"+event.getId());
+	@PostMapping("edit/{id}")
+	public String saveEditEvent(Event event, @RequestPart(value = "startDate") String startTimestampString,
+			@RequestPart(value="endDate") String endTimestampString) throws EventNotFoundException {
+		Date startTimestamp = Parser.parseTimestamp(startTimestampString);
+		Date endTimestamp = Parser.parseTimestamp(endTimestampString);
+		event.setStartTimestamp(startTimestamp);
+		event.setEndTimestamp(endTimestamp);
 	    eventService.updateEvent(event);
 	    return "redirect:/events/management" ;
 	}
 	@RequestMapping("/delete/{id}")
-	//@DeleteMapping("/deleteEvent/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Long id) throws EventNotFoundException{
 		eventService.deleteEvent(id);
 		return "redirect:/events/management";
+	}
+	
+	@GetMapping("detail/{id}")
+	public ModelAndView eventDetail(@PathVariable(name = "id") Long id) throws EventNotFoundException {
+		ModelAndView mav = new ModelAndView("showEventDetail");
+		Event event = eventService.getEvent(id);
+		System.out.println(event.isRegistrable());
+		mav.addObject("event", event);
+		return mav;
 	}
 
 	@GetMapping("")
@@ -92,12 +102,5 @@ public class EventController {
 		return "userViewAllEvents";
 	}
 
-	@RequestMapping("/detail/{id}")
-	public ModelAndView eventDetail(@PathVariable(name = "id") Long id) throws EventNotFoundException {
-		ModelAndView mav = new ModelAndView("showEventDetail");
-		Event event = eventService.getEvent(id);
-		System.out.println(event.isRegistrable());
-		mav.addObject("event", event);
-		return mav;
-	}
+	
 }

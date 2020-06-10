@@ -3,65 +3,77 @@ package com.summitworks.ngo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.summitworks.ngo.entities.Event;
 import com.summitworks.ngo.entities.Registration;
+import com.summitworks.ngo.entities.User;
+import com.summitworks.ngo.exceptions.EventNotFoundException;
+import com.summitworks.ngo.exceptions.UserNotFoundException;
 import com.summitworks.ngo.repo.EventRepoistory;
 import com.summitworks.ngo.repo.RegistrationRepoistory;
+import com.summitworks.ngo.services.EventService;
+import com.summitworks.ngo.services.UserService;
 
 @Controller
+@RequestMapping("/registration/")
 public class RegistrationController {
 
 	@Autowired
 	RegistrationRepoistory regisRepo;
 	@Autowired
-	EventRepoistory eventRepo;
-	@RequestMapping("/RegisterForEvent/{id}")
-	public String registrationForEvent(Model model,@PathVariable(name="id") Long id) {
-
+	EventService eventService;
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("{event_id}")
+	public String registrationForEvent(Model model, @PathVariable(name="event_id") Long event_id) {
 		Registration registration = new Registration();
-		Event event=eventRepo.getOne(id);
-		registration.setEvent(event);
 		model.addAttribute("registration", registration);
-
+		model.addAttribute("event_id", event_id);
 		return "registration";
 	}
 
-	@RequestMapping("/next")
-	public ModelAndView next(@ModelAttribute("registration") Registration registration) {
-
-		// System.out.println("id after edit" + registration.getId());
-//		Event event=eventRepo.getOne(registration.getEvent().getId());
-//		regisRepo.save(registration);
-//		long totalAdultAmount=0;
-//		long totalChildAmount=0;
-//		if(null!=registration.getTotalAdultQty()) {
-//			totalAdultAmount=registration.getTotalAdultQty()*event.getAdultPrice();
-//		}
-//
-//		if(null!=registration.getChildTicketQty()) {
-//			totalChildAmount=registration.getChildTicketQty()*event.getChildTicketPrice();
-//		}
-	
-		ModelAndView mav = new ModelAndView("next");
-		// Event event = eventRepo.getOne(id);
-		//mav.addObject("totalAdultAmount", totalAdultAmount);
-		//mav.addObject("totalChildAmount", totalChildAmount);
-		mav.addObject("totalAdultAmount", 12);
-		mav.addObject("totalChildAmount", 1);
-		mav.addObject("registrationId",registration.getId());
-		return mav;
+	@PostMapping("{event_id}/next")
+	public String next(Model model, @ModelAttribute("registration") Registration registration, @PathVariable(name="event_id") Long event_id) throws EventNotFoundException {
+		Event e = eventService.getEvent(event_id);
+		double totalAdultAmount = 0;
+		double totalChildAmount = 0;
+		totalAdultAmount = registration.getTotalAdultQty() * e.getAdultPrice();
+		totalChildAmount = registration.getTotalChildQty() * e.getChildPrice();
+		model.addAttribute("totalAdultAmount", totalAdultAmount);
+		model.addAttribute("totalChildAmount", totalChildAmount);
+		model.addAttribute("registration", registration);
+		model.addAttribute("event_id", event_id);
+		return "next";
 
 	}
-	@RequestMapping("/ConfirmRegistration/{id}")
-	public String registrationConfirmed(@PathVariable(name="id") Long id) {
-		Registration registration=regisRepo.getOne(id);
-		//registration.setRegistrationConfirmed(true);
-		regisRepo.save(registration);
-		return "redirect:/userView";
+	@RequestMapping("{event_id}/confirm")
+	public String registrationConfirmed(@ModelAttribute("registration") Registration registration, @PathVariable(name="event_id") Long event_id) throws UserNotFoundException, EventNotFoundException {
+		
+		//TODO: Need to set logged in user into registration. So that we can properly mapping on DB. 
+		// but I don't know how to get logged in user information.
+		//for now So im hard coding for testing purpose.
+		User u = userService.getUser(3L);
+		Event e = eventService.getEvent(8L);
+
+		// hard code registration for testing purpose.
+		Registration testRegi = new Registration();
+		testRegi.setAddress("address test");
+		testRegi.setContactNumber("contact test");
+		testRegi.setEmail("test@test.com");
+		testRegi.setFirstname("test first name");
+		testRegi.setLastname("test last name");
+		testRegi.setTotalAdultQty(20);
+		testRegi.setTotalChildQty(10);
+		testRegi.setUser(u);
+		testRegi.setEvent(e);
+		userService.registerEvent(u, testRegi);
+		return "redirect:/events/";
 	}
 }

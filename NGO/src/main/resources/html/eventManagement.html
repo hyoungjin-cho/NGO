@@ -41,7 +41,7 @@
  
     <div id="about-main-content">
     <h1>Event Management</h1>
-    <span align="center" style="align:right"><a href="addEvent">Add a new Event</a></span>
+    <span align="center" style="align:right"><a href="/events/add">Add a new Event</a></span>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
@@ -60,8 +60,8 @@
             	<td th:text="${event.eventName}">Event</td>
                 <td th:text="${event.category}">Category</td>
                 <td th:text="${event.location}">Location</td>
-                <td th:text="${event.startDate}">Start Date</td>
-                <td th:text="${event.endDate}">End Date</td>
+                <td th:text="${event.getStartDate()}">Start Date</td>
+                <td th:text="${event.getEndDate()}">End Date</td>
                 
                 <td>
                 	<a th:href="@{'/events/edit/' + ${event.id}}">Edit</a>

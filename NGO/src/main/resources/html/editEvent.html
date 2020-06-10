@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -9,9 +10,9 @@
 		<h1>Edit Event</h1>
 		<br />
 		<form action="#" th:action="@{/events/edit/{id}}" th:object="${event}"
-			method="put" >
+			method="post"  enctype='multipart/form-data'>
 			<input type="hidden" th:field="*{id}" />
-			<input type="hidden" th:field="*{imageUrl}" />
+			<input type="hidden" th:field="*{imgUrl}"/>
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>Event:</td>
@@ -25,28 +26,20 @@
 					<td>Category :</td>
 					<td>
 						<select name="category"  th:field="*{category}" required>
-								<option th:each="category : ${T(com.frontbackend.thymeleaf.enums.model.EventCategory).values()}"
+								<option th:each="category : ${T(com.summitworks.ngo.enums.EventCategory).values()}"
 										th:value="${category}" th:text="${category}"></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Start Date :</td>
-					<td><input type="date" th:field="*{startDate}" required/></td>
+					<td><input type="datetime-local" name = "startDate" required /></td>
 				</tr>
 				<tr>
 					<td>End Date:</td>
-					<td><input type="date" th:field="*{endDate}" required/></td>
+					<td><input type="datetime-local" name = "endDate" requried /></td>
 				</tr>
 
-				<tr>
-					<td>Start Time :</td>
-					<td><input type="time" th:field="*{startTime}" required/></td>
-				</tr>
-				<tr>
-					<td>End Time :</td>
-					<td><input type="time" th:field="*{endTime}" /></td>
-				</tr>
 				<tr>
 					<td>Location :</td>
 					<td><input type="text" th:field="*{location}" required/></td>
@@ -55,8 +48,8 @@
 				<tr>
 					<td>Registration allowed :</td>
 					<td>
-						<INPUT type="radio" name="registration" value="True" th:field="*{isRegistrable}"> True
-    					<INPUT type="radio" name="registration" value="False" th:field="*{isRegistrable}"> False
+						<INPUT type="radio" name="registration" value="True" th:field="*{registrable}"> True
+    					<INPUT type="radio" name="registration" value="False" th:field="*{registrable}"> False
 					</td>
 				</tr>
 				<tr>

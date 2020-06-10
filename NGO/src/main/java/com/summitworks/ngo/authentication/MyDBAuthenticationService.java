@@ -1,4 +1,4 @@
-package com.summitworks.ngo.authentication;
+/*package com.summitworks.ngo.authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +17,7 @@ public class MyDBAuthenticationService implements UserDetailsService {
  
     //@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	
     	com.summitworks.ngo.entities.User customUser = userRepo.findByUserId(username).get(0);	
         System.out.println("Account= " + customUser.getId() + customUser.getPassword());
 
@@ -32,4 +33,4 @@ public class MyDBAuthenticationService implements UserDetailsService {
         return builder.build();
     }
  
-}
+}*/

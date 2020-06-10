@@ -15,21 +15,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="registrations")
 public class Registration {
-	//TODO: omitted registration confirmation variable. need to add if required.
-	@EmbeddedId
-	private RegistrationID id;
-	
+//	@EmbeddedId
+//	private RegistrationID id;
+//	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("user_id")
+//	@MapsId("user_id")
+	@JoinColumn(name ="user_id")
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("event_id")
+//	@MapsId("event_id")
+	@JoinColumn(name="event_id")
 	private Event event;
 	
 	private String firstname;
@@ -39,10 +44,7 @@ public class Registration {
 	@Column(name = "contact_number")
 	private String contactNumber;
 	
-	@OneToOne(fetch = FetchType.LAZY, 
-			cascade = CascadeType.ALL, 
-			mappedBy= "Registration")
-	private Address address;
+	private String address;
 	
 	@Column(name = "total_adult_quantity")
 	private int totalAdultQty;
@@ -50,16 +52,25 @@ public class Registration {
 	@Column(name = "total_child_quantity")
 	private int totalChildQty;
 	
-	public RegistrationID getId() {
-		return id;
-	}
-
-	public void setId(RegistrationID id) {
-		this.id = id;
-	}
+//	public RegistrationID getId() {
+//		return id;
+//	}
+//
+//	public void setId(RegistrationID id) {
+//		this.id = id;
+//	}
+	
 
 	public User getUser() {
 		return user;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setUser(User user) {
@@ -106,11 +117,11 @@ public class Registration {
 		this.contactNumber = contactNumber;
 	}
 
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 

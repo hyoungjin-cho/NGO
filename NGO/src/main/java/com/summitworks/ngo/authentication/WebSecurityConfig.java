@@ -1,4 +1,4 @@
-package com.summitworks.ngo.authentication;
+/*package com.summitworks.ngo.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// For ADMIN only.
 		http.authorizeRequests()
-				.antMatchers("/userManagement", "/addUser", "/save", "/editSave/{id}", "/edit/{id}", "/delete/{id}",
+				.antMatchers("/users/management", "users/add", "users/save", "/editSave/{id}", "/edit/{id}", "/delete/{id}",
 						"/EventManagement", "/addEvent", "/saveEvent", "/editEvent/{id}", "/deleteEvent/{id}",
 						"/RegisterForEvent/{id}", "/next", "/ConfirmRegistration/{id}")
 				.access("hasRole('ROLE_Admin')");
@@ -46,4 +46,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 
-}
+}*/

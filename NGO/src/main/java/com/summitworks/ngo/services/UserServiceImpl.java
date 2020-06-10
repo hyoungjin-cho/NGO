@@ -7,6 +7,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.summitworks.ngo.entities.Event;
+import com.summitworks.ngo.entities.Registration;
 import com.summitworks.ngo.entities.User;
 import com.summitworks.ngo.exceptions.UserNotFoundException;
 import com.summitworks.ngo.repo.UserRepository;
@@ -53,6 +55,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User u) {
 		return userRepo.save(u);
+	}
+
+	@Override
+	public void registerEvent(User u, Registration r) {
+		u.registerEvent(r);
+		userRepo.save(u);
+	}
+	
+	@Override
+	public void registerEventWithUserId(Long userId, Registration r) throws UserNotFoundException {
+		User u = this.getUser(userId);
+		registerEvent(u, r);
 	}
 
 }

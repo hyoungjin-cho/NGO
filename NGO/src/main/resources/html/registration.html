@@ -8,17 +8,17 @@
 	<div align="center">
 		<h1>Registration</h1>
 		<br />
-		<form action="#" th:action="@{/next}" th:object="${registration}"
+		<form action="#" th:action="@{'/registration /' + ${event_id} + '/next'}" th:object="${registration}"
 			method="post">
 
 			<table border="0" cellpadding="10">
 				<tr>
 					<td>First Name:</td>
-					<td><input type="text" th:field="*{firstName}" required /></td>
+					<td><input type="text" th:field="*{firstname}" required /></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" th:field="*{lastName}" required /></td>
+					<td><input type="text" th:field="*{lastname}" required /></td>
 				</tr>
 				<tr>
 					<td>Email :</td>
@@ -26,16 +26,22 @@
 				</tr>
 				<tr>
 					<td>Contact:</td>
-					<td><input type="text" th:field="*{contact}" required/></td>
+					<td><input type="text" th:field="*{contactNumber}" required/></td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td><input type="text" th:field="*{address}" required/></td> 
 				</tr>
 					<tr>
-					<td>Adult Ticket Count :</td>
-					<td><input type="number" th:field="*{adultTicketQty}" min="0" required/>
-					</td>
-				</tr>	
+						<td>Adult Ticket Count :</td>
+						<td>
+							<input type="number" th:field="*{totalAdultQty}" min="0" required/>
+						</td>
+					</tr>	
 				<tr>
 					<td>Child Ticket Count :</td>
-					<td><input type="number" th:field="*{childTicketQty}" min="0" required />
+					<td>
+						<input type="number" th:field="*{totalChildQty}" min="0" required />
 					</td>
 				</tr>
 				

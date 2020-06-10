@@ -36,7 +36,7 @@
 						<td>Role :</td>
 						<td>	
 							<select name="role"  th:field="*{role}" required>
-								<option th:each="role : ${T(com.frontbackend.thymeleaf.enums.model.UserType).values()}"
+								<option th:each="role : ${T(com.summitworks.ngo.enums.UserType).values()}"
 										th:value="${role}" th:text="${role}"></option>
 							</select> 
 						</td>

@@ -49,8 +49,8 @@
     	<li th:each="event , stat : ${listEvents}" th:remove="tag">
     	 <span th:if="${(stat.index+1) % 4 ==0}"><tr height="30px"></tr><tr ></span>
     		<td >
-    			<a th:href="@{'/EventDetail/' + ${event.id}}"> 
-    				<img th:src="${event.imageUrl}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
+    			<a th:href="@{/events/detail/' + ${event.id}}"> 
+    				<img th:src="${event.imgUrl}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
     			</a><br>
     			<center>[[${event.eventName}]] : [[${event.location}]]  </center>
     		</td >

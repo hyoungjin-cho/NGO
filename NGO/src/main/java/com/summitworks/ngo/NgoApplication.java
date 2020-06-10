@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
-@ComponentScan
-@EnableAutoConfiguration
-@EnableJpaRepositories("com.summitworks.ngo.repo") 
-@EntityScan("com.summitworks.ngo.entities")
+//@ComponentScan
+//@EnableAutoConfiguration
+//@EnableJpaRepositories("com.summitworks.ngo.repo") 
+//@EntityScan("com.summitworks.ngo.entities")
 @SpringBootApplication
 public class NgoApplication {
 

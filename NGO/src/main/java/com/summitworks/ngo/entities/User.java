@@ -23,11 +23,11 @@ public class User implements Serializable {
 	private Long id;
 	private String firstname;
 	private String lastname;
-	@NaturalId
 	private String email;
 	private String password;
 	private String role;
-	@OneToMany(mappedBy = "User", cascade= CascadeType.ALL, orphanRemoval = true)
+	private String userId;
+	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL, orphanRemoval = true)
 	private Set<Registration> registeredEvents = new HashSet<>();
 
 	public String getFirstname() {
@@ -86,6 +86,16 @@ public class User implements Serializable {
 		this.registeredEvents = registeredEvents;
 	}
 	
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public void registerEvent(Registration r) {
 		registeredEvents.add(r);
 	}
@@ -104,5 +114,10 @@ public class User implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(email);
+	}
+	
+	@Override
+	public String toString() {
+		return this.firstname;
 	}
 }

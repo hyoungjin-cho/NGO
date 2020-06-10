@@ -1,5 +1,6 @@
 package com.summitworks.ngo.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,10 +20,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.summitworks.ngo.enums.EventCategory;
+import com.summitworks.ngo.utils.Formatter;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -35,58 +37,17 @@ public class Event {
 	@Enumerated(EnumType.STRING)
 	private EventCategory category;
 	
-//	@Column(name = "start_timestamp")
-//	@Temporal(TemporalType.TIMESTAMP)
-//	private Date startTimestamp;
-//	
-//	@Column(name = "end_timestamp")
-//	@Temporal(TemporalType.TIMESTAMP)
-//	private Date endTimestamp;
+	@Column(name = "start_timestamp")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date startTimestamp;
 	
-	// I will remove once I use Date objects.
-	private String startDate;
-	private String startTime;
-	private String endDate;
-	private String endTime;
+	@Column(name = "end_timestamp")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date endTimestamp;
 	
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-	// above removed above.
-
-	//private Address address;
 	private String location;
 	
-	@Column(name = "is_registrable")
-	private boolean isRegistrable;
+	private boolean registrable;
 	
 	@Column(name = "image_url")
 	private String imgUrl;
@@ -135,21 +96,21 @@ public class Event {
 		this.category = category;
 	}
 
-//	public Date getStartTimestamp() {
-//		return startTimestamp;
-//	}
-//
-//	public void setStartTimestamp(Date startTimestamp) {
-//		this.startTimestamp = startTimestamp;
-//	}
-//
-//	public Date getEndTimestamp() {
-//		return endTimestamp;
-//	}
-//
-//	public void setEndTimestamp(Date endTimestamp) {
-//		this.endTimestamp = endTimestamp;
-//	}
+	public Date getStartTimestamp() {
+		return startTimestamp;
+	}
+
+	public void setStartTimestamp(Date startTimestamp) {
+		this.startTimestamp = startTimestamp;
+	}
+
+	public Date getEndTimestamp() {
+		return endTimestamp;
+	}
+
+	public void setEndTimestamp(Date endTimestamp) {
+		this.endTimestamp = endTimestamp;
+	}
 	
 	public String getLocation() {
 		return location;
@@ -159,28 +120,21 @@ public class Event {
 		this.location = location;
 	}
 
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
-
-	public boolean isRegistrable() {
-		return isRegistrable;
-	}
-
-	public void setRegistrable(boolean isRegistrable) {
-		this.isRegistrable = isRegistrable;
-	}
-
 	public String getImgUrl() {
 		return imgUrl;
 	}
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	
+
+	public boolean isRegistrable() {
+		return registrable;
+	}
+
+	public void setRegistrable(boolean registrable) {
+		this.registrable = registrable;
 	}
 
 	public double getAdultPrice() {
@@ -207,6 +161,22 @@ public class Event {
 		this.users = users;
 	}
 	
+	public String getStartDate() {
+		return Formatter.getDate(startTimestamp);
+	}
+	
+	public String getEndDate() {
+		return Formatter.getDate(endTimestamp);	
+	}
+	
+	public String getStartTime() {
+		return Formatter.getTime(startTimestamp);
+	}
+	
+	public String getEndTime() {
+		return Formatter.getTime(endTimestamp);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -214,5 +184,10 @@ public class Event {
 		if(o == null || getClass() != o.getClass()) return false;
 		Event e = (Event) o;
 		return Objects.equals(this.id, e.getId());
+	}
+	
+	@Override
+	public String toString() {
+		return eventName;
 	}
 }
