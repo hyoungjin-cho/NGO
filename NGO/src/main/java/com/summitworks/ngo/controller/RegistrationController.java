@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.summitworks.ngo.entities.Event;
@@ -60,6 +61,23 @@ public class RegistrationController {
 		Registration registration=regisRepo.getOne(id);
 		registration.setRegistrationConfirmed(true);
 		regisRepo.save(registration);
-		return "redirect:/userView";
+		return "redirect:/";
 	}
+//	@RequestMapping(value="/ConfirmRegistration", method=RequestMethod.POST)
+//	public String registrationConfirmed(Model model,@PathVariable(name="id") Long id, 
+//	        @RequestParam(value="action", required=true) String action) {
+//
+//	    if (action.equals("confirm")) {
+//	    	Registration registration=regisRepo.getOne(id);
+//			registration.setRegistrationConfirmed(true);
+//			regisRepo.save(registration);
+//			return "redirect:/userView";  
+//	    }
+//
+//	    if (action.equals("cancel")) {
+//	       model.addAttribute("message","register again");
+//	       return "message"+"redirect:/userView";  
+//	    }
+//	    return "redirect:/userView";  
+//	}
 }

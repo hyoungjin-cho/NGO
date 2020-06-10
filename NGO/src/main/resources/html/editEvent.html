@@ -3,8 +3,32 @@
 <head>
 <meta charset="utf-8" />
 <title>Edit Event</title>
+<style>
+td {
+	border-color: #ffffff;
+	border-style: solid;
+	border-width: 20px;
+}
+table.grid {
+	background-color: #ebebeb;
+	font-size: 20px;
+	height: 10% border-collapse;
+	text-align: center;
+	width: 100%
+}
+</style>
 </head>
 <body>
+<div id="about-header" style="background-color: #666;padding: 5px;text-align: center;font-size: 35px;color: white;">
+     
+        
+        NGO
+        
+        <div style="float:right" >
+                    
+                
+        </div>
+    </div>
 	<div align="center">
 		<h1>Edit Event</h1>
 		<br />
@@ -12,7 +36,7 @@
 			method="post" >
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{imageUrl}" />
-			<table border="0" cellpadding="10">
+			<table border="0" cellpadding="10" class="grid">
 				<tr>
 					<td>Event:</td>
 					<td><input type="text" th:field="*{eventName}" required/></td>

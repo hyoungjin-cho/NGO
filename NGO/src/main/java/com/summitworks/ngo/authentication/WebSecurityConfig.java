@@ -22,8 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// For ADMIN only.
 		http.authorizeRequests()
 				.antMatchers("/userManagement", "/addUser", "/save", "/editSave/{id}", "/edit/{id}", "/delete/{id}",
-						"/EventManagement", "/addEvent", "/saveEvent", "/editEvent/{id}", "/deleteEvent/{id}",
-						"/RegisterForEvent/{id}", "/next", "/ConfirmRegistration/{id}")
+						"/EventManagement", "/addEvent", "/saveEvent", "/editEvent/{id}", "/deleteEvent/{id}")
 				.access("hasRole('ROLE_Admin')");
 
 		http.authorizeRequests().antMatchers("/addUser", "/save").permitAll().anyRequest().authenticated().and()

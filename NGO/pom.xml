@@ -12,6 +12,7 @@
 	<groupId>com.summitworks.ngo</groupId>
 	<artifactId>NGO</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	 <packaging>war</packaging>
 	<name>NGO</name>
 	<description>NGO</description>
 
@@ -45,9 +46,15 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			
+		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
+			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.11.133</version>
 		</dependency>
 	</dependencies>

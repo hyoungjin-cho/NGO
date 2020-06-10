@@ -1,12 +1,13 @@
 package com.summitworks.ngo;
 
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
+public class NgoApplicationTests {
 
-//@SpringBootTest
-class NgoApplicationTests {
-
-//	@Test
-//	void contextLoads() {
-//	}
+	@Test
+	public void contextLoads() {
+	}
 
 }
