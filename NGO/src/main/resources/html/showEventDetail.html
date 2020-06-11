@@ -28,7 +28,7 @@ td {
 <body>
 
 	<form action="#" th:action="@{'/registration/' + ${event.id}}"
-		th:object="${event}" method="get">
+		th:object="${event}" method="post">
 		<h3 class="event">Event Registration Detail:</h3>
 		<table border="10" cellpadding="10" class="grid">
 			<tr>

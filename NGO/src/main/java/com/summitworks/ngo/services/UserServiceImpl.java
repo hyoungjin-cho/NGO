@@ -7,10 +7,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.summitworks.ngo.entities.Event;
 import com.summitworks.ngo.entities.Registration;
 import com.summitworks.ngo.entities.User;
 import com.summitworks.ngo.exceptions.UserNotFoundException;
+import com.summitworks.ngo.repo.RegistrationRepoistory;
 import com.summitworks.ngo.repo.UserRepository;
 
 @Service
@@ -19,6 +19,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepo;
 
+	@Autowired
+	RegistrationRepoistory regRepo;
+	
+	
 	@Override
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
@@ -31,6 +35,13 @@ public class UserServiceImpl implements UserService {
 		} catch(EntityNotFoundException e){
 			throw new UserNotFoundException(id);
 		}
+	}
+	
+	@Override
+	public List<User> findByUserId(String userId){
+		System.out.println(userId);
+			return userRepo.findByUserId(userId);
+		
 	}
 
 	@Override
@@ -60,7 +71,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void registerEvent(User u, Registration r) {
 		u.registerEvent(r);
-		userRepo.save(u);
+		r.setUser(u);
+		
+		regRepo.save(r);
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-/*package com.summitworks.ngo.authentication;
+package com.summitworks.ngo.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,19 +16,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/RegisterForEvent/{id}", "/next", "/ConfirmRegistration/{id}","/userView","/EventDetail/{id}")//
-				.access("hasAnyRole('ROLE_Admin', 'ROLE_User')");
-
-		// For ADMIN only.
+		http.authorizeRequests().antMatchers("/registration/{event_id}", 
+				"/registration/next","/events/detail/{id}",
+				"/registration/confirm", "/registration/", "/", 
+				"/users/login")
+				.access("hasAnyRole('ROLE_Admin', 'ROLE_Regular')");
+//
+//		// For ADMIN only.
 		http.authorizeRequests()
-				.antMatchers("/users/management", "users/add", "users/save", "/editSave/{id}", "/edit/{id}", "/delete/{id}",
-						"/EventManagement", "/addEvent", "/saveEvent", "/editEvent/{id}", "/deleteEvent/{id}",
-						"/RegisterForEvent/{id}", "/next", "/ConfirmRegistration/{id}")
+				.antMatchers("/events/management", 
+						"/events/add", "/events/edit/{id}", "/events/delete/{id}",
+						 "/users/management", "/users/add",
+						"/users/edit/{id}", "/users/delete/{id}", "/users/home")
 				.access("hasRole('ROLE_Admin')");
 
 		http.authorizeRequests().antMatchers("/addUser", "/save").permitAll().anyRequest().authenticated().and()
 				.formLogin().loginProcessingUrl("/login") // Submit URL
-				.loginPage("/login").permitAll().and().logout().permitAll().and().csrf().disable();
+				.loginPage("/users/login").permitAll().and().logout().permitAll().and().csrf().disable();
 	}
 
 	@Bean
@@ -46,4 +50,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 
-}*/
+}

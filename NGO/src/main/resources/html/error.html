@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+
+h3.event {
+	background-color: #ebebeb;
+	font-size: 20px;
+	height: 10% margin-top: 20px
+}
+</style>
+</head>
+<body>
+ <div id="about-header" style="background-color: #666;padding: 5px;text-align: center;font-size: 35px;color: white;">
+     
+        
+        NGO
+        
+        <div style="float:right" >
+                      <form th:action="@{/logout}" method="post">
+	            <input type="submit" value="Sign Out"/>
+	        </form>
+                
+        </div>
+    </div>
+<h1 class="event"><a th:href="@{'/users/login'}"> Home</a></h1>
+<h3 class="event">Error 404! Invalid url</h3>
+</body>
+</html>

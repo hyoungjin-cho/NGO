@@ -16,7 +16,6 @@
      
     <th:block id="about-static-resources">
        
-        <script type="text/javascript" src="../static/about.js" th:src="@{/about.js}"></script>
        
     </th:block>
      
@@ -49,7 +48,7 @@
     	<li th:each="event , stat : ${listEvents}" th:remove="tag">
     	 <span th:if="${(stat.index+1) % 4 ==0}"><tr height="30px"></tr><tr ></span>
     		<td >
-    			<a th:href="@{/events/detail/' + ${event.id}}"> 
+    			<a th:href="@{'/events/detail/' + ${event.id}}"> 
     				<img th:src="${event.imgUrl}" th:alt="${event.eventName}" style="width:100px;height:104px;background-color:white"/>
     			</a><br>
     			<center>[[${event.eventName}]] : [[${event.location}]]  </center>

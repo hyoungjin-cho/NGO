@@ -1,9 +1,9 @@
 package com.summitworks.ngo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.summitworks.ngo.entities.User;
 import com.summitworks.ngo.exceptions.UserNotFoundException;
 import com.summitworks.ngo.services.UserService;
-
-//import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 
 
 
@@ -73,6 +70,12 @@ public class UserController {
 	  
 	  @RequestMapping("login")
 	    public String login() {
+		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		    if (!(auth instanceof AnonymousAuthenticationToken)) {
+		        /* The user is logged in :) */
+		        return "redirect:/";
+		    }
 	        return "login";
 	    }
 	  @RequestMapping("home")

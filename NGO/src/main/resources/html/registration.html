@@ -5,10 +5,15 @@
 <title>Registration</title>
 </head>
 <body>
+<div id="about-header" style="background-color: #666;padding: 5px;text-align: center;font-size: 35px;color: white;">
+     
+        
+        NGO
+        </div>
 	<div align="center">
 		<h1>Registration</h1>
 		<br />
-		<form action="#" th:action="@{'/registration /' + ${event_id} + '/next'}" th:object="${registration}"
+		<form action="#" th:action="@{'/registration'  + '/next'}" th:object="${registration}"
 			method="post">
 
 			<table border="0" cellpadding="10">
@@ -48,7 +53,8 @@
 				<input type="hidden" th:field="*{event.id}" />
 					
 					<td><button type="submit">Next</button> </td>
-					<td><button type="reset">Cancel</button> </td>
+					
+					<td><button type="reset" onclick="history.back(-1)">Back</button> </td>
 				</tr>
 			</table>
 		</form>
