@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -30,20 +31,23 @@ public class AmazonClient {
     private String endpointUrl;
     @Value("${amazonProperties.bucketName}")
     private String bucketName;
-    @Value("${amazonProperties.accessKey}")
-    private String accessKey;
-    @Value("${amazonProperties.secretKey}")
-    private String secretKey;
+//    @Value("${amazonProperties.accessKey}")
+//    private String accessKey;
+//    @Value("${amazonProperties.secretKey}")
+//    private String secretKey;
 
     @SuppressWarnings("deprecation")
 	@PostConstruct
     private void initializeAmazon() {
-    	System.out.println(this.accessKey);
-        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+    	//System.out.println(this.accessKey);
+      //  AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
        // this.s3client = new AmazonS3Client(credentials);
         
+//        this.s3client = AmazonS3ClientBuilder.standard().
+//        		withCredentials(new AWSStaticCredentialsProvider(credentials)).
+//        		withRegion(Regions.US_EAST_2).build();
         this.s3client = AmazonS3ClientBuilder.standard().
-        		withCredentials(new AWSStaticCredentialsProvider(credentials)).
+        		withCredentials(new InstanceProfileCredentialsProvider(false)).
         		withRegion(Regions.US_EAST_2).build();
     }
 

@@ -26,7 +26,6 @@ import com.summitworks.ngo.services.EventService;
 import com.summitworks.ngo.utils.Parser;
 
 @Controller
-@RequestMapping("/events/")
 public class EventController {
 	
 	@Autowired
@@ -35,20 +34,20 @@ public class EventController {
 	@Autowired
 	AmazonClient amazonClient;
 
-	@GetMapping("management")
+	@GetMapping("/events/management")
 	public String listEvents(Model model) {
 		model.addAttribute("listEvents", eventService.getAllEvents());
 		return "eventManagement";
 	}
 
-	@GetMapping("add")
+	@GetMapping("/events/add")
 	public String showAddEventPage(Model model) {
 		Event event = new Event();
 		model.addAttribute("event", event);
 		return "addEvent";
 	}
 
-	@PostMapping("add")
+	@PostMapping("/events/add")
 	public String saveEvent(@ModelAttribute("event") Event event, @RequestPart(value = "file") MultipartFile file, 
 			@RequestPart(value ="startDate") String startTimestampString, @RequestPart(value="endDate") String endTimestampString ) {
 		if (event.getId() == null || file!=null ) {
@@ -63,7 +62,7 @@ public class EventController {
 		return "redirect:/events/management";
 	}
 
-	@GetMapping("edit/{id}")
+	@GetMapping("/events/edit/{id}")
 	public ModelAndView showEditEventPage(@PathVariable(name = "id") Long id) throws EventNotFoundException {
 		ModelAndView mav = new ModelAndView("editEvent");
 		Event event = eventService.getEvent(id);
@@ -71,7 +70,7 @@ public class EventController {
 		return mav;
 	}
 	
-	@PostMapping("edit/{id}")
+	@PostMapping("/events/edit/{id}")
 	public String saveEditEvent(Event event, @RequestPart(value = "startDate") String startTimestampString,
 			@RequestPart(value="endDate") String endTimestampString) throws EventNotFoundException {
 		Date startTimestamp = Parser.parseTimestamp(startTimestampString);
@@ -81,13 +80,13 @@ public class EventController {
 	    eventService.updateEvent(event);
 	    return "redirect:/events/management" ;
 	}
-	@RequestMapping("/delete/{id}")
+	@RequestMapping("/events/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Long id) throws EventNotFoundException{
 		eventService.deleteEvent(id);
 		return "redirect:/events/management";
 	}
 	
-	@GetMapping("detail/{id}")
+	@GetMapping("/events/detail/{id}")
 	public ModelAndView eventDetail(@PathVariable(name = "id") Long id) throws EventNotFoundException {
 		ModelAndView mav = new ModelAndView("showEventDetail");
 		Event event = eventService.getEvent(id);
@@ -96,7 +95,7 @@ public class EventController {
 		return mav;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public String userViewHomePage(Model model) {
 		model.addAttribute("listEvents", eventService.getAllEvents());
 		return "userViewAllEvents";

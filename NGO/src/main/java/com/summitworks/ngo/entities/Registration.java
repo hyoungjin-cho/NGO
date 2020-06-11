@@ -51,6 +51,7 @@ public class Registration {
 	
 	@Column(name = "total_child_quantity")
 	private int totalChildQty;
+
 	
 //	public RegistrationID getId() {
 //		return id;
