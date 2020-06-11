@@ -86,8 +86,6 @@ public class User implements Serializable {
 		this.registeredEvents = registeredEvents;
 	}
 	
-	
-	
 	public String getUserId() {
 		return userId;
 	}
